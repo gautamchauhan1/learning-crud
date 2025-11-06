@@ -17,7 +17,7 @@ export class AddEditComponent implements OnInit {
     private service: TaskService,
     private _coreService: CoreService,
     private _dialogRef: MatDialogRef<AddEditComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any  // <-- get row data here
+    @Inject(MAT_DIALOG_DATA) public data: any  
 
   ){
     this.taskForm = this._fb.group({
@@ -43,7 +43,7 @@ export class AddEditComponent implements OnInit {
           next: (data:any)=>
           {
             this._coreService.openSnackBar('Task updated!');
-            this._dialogRef.close(true); // ✅ send refresh signal
+            this._dialogRef.close(true); 
           }
         })
 
