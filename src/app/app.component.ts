@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
     private _dialog: MatDialog,
     private service: TaskService,
     private _coreService: CoreService
-  ){}
+  ) { }
 
   displayedColumns: string[] = ['id', 'firstName', 'lastName', 'email', 'dob', 'actions'];
   dataSource!: MatTableDataSource<any>;
@@ -30,28 +30,25 @@ export class AppComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
 
 
-  getTaskList()
-  {
+  getTaskList() {
     this.service.getTaskList().subscribe({
-      next: (res:any)=>
-      {
+      next: (res: any) => {
         console.log(res);
-      // ✅ Assign the data to the MatTableDataSource
-      this.dataSource = new MatTableDataSource(res);
-      // ✅ Attach paginator and sort
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-        
+        // ✅ Assign the data to the MatTableDataSource
+        this.dataSource = new MatTableDataSource(res);
+        // ✅ Attach paginator and sort
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+
       },
-      error: (err:any)=>
-      {
+      error: (err: any) => {
         console.log(err);
-        
+
       }
     })
   }
 
-    applyFilter(event: Event) {
+  applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
@@ -64,60 +61,51 @@ export class AppComponent implements OnInit {
     this.getTaskList();
   }
 
-  onEdit(data:any)
-  {
+  onEdit(data: any) {
 
-    const dialogRef = this._dialog.open(AddEditComponent, {data: data});
+    const dialogRef = this._dialog.open(AddEditComponent, { data: data });
 
     dialogRef.afterClosed().subscribe({
-      next: (val:any)=>
-      {
-        if(val)
-        {
-        this.getTaskList();
+      next: (val: any) => {
+        if (val) {
+          this.getTaskList();
         }
       }
     })
 
   }
 
-  onDelete(id:any)
-  {
+  onDelete(id: any) {
 
-    const dialogRef = this._dialog.open(ConfirmDialogComponent, {disableClose: true});
+    const dialogRef = this._dialog.open(ConfirmDialogComponent, { disableClose: true });
 
-    dialogRef.afterClosed().subscribe( result=>
-      {
-      if(result===true)
-      {
-      this.service.deleteTask(id).subscribe({
-      next:(val:any)=>{
-        this._coreService.openSnackBar('Task Deleted successfully!');
-        this.getTaskList();
-      },
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        this.service.deleteTask(id).subscribe({
+          next: (val: any) => {
+            this._coreService.openSnackBar('Task Deleted successfully!');
+            this.getTaskList();
+          },
 
-         error: (err:any)=>
-    {
-      console.log(err);
-      this._coreService.openSnackBar('Error deleting Task', 'error');
-    }
+          error: (err: any) => {
+            console.log(err);
+            this._coreService.openSnackBar('Error deleting Task', 'error');
+          }
 
-    })
+        })
       }
     })
 
 
   }
 
-  openForm()
-  {
-   const dialogRef = this._dialog.open(AddEditComponent);
-   dialogRef.afterClosed().subscribe({
-    next: (val:any)=>
-    {
-      this.getTaskList();
-    }
-   })
+  openForm() {
+    const dialogRef = this._dialog.open(AddEditComponent);
+    dialogRef.afterClosed().subscribe({
+      next: (val: any) => {
+        this.getTaskList();
+      }
+    })
   }
 
 }

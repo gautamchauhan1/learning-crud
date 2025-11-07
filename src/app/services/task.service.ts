@@ -9,23 +9,19 @@ export class TaskService {
 
   constructor(private http: HttpClient) { }
 
-  addTask(data:any) : Observable<any>
-  {
-   return this.http.post('http://localhost:3000/task', data);
+  addTask(data: any): Observable<any> {
+    return this.http.post('http://localhost:3000/task', data);
   }
 
-    editTask(id:any, data:any) : Observable<any>
-  {
-   return this.http.put(`http://localhost:3000/task/${id}`, data);
+  editTask(id: any, data: any): Observable<any> {
+    return this.http.put(`http://localhost:3000/task/${id}`, data);
   }
 
-  deleteTask(id:any) : Observable<any>
-  {
+  deleteTask(id: any): Observable<any> {
     return this.http.delete(`http://localhost:3000/task/${id}`);
   }
 
-  getTaskList() : Observable<any>
-  {
+  getTaskList(): Observable<any> {
     return this.http.get('http://localhost:3000/task');
   }
 

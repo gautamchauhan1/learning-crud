@@ -11,60 +11,61 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 })
 export class AddEditComponent implements OnInit {
 
-  taskForm : FormGroup;
+  taskForm: FormGroup;
   constructor(
     private _fb: FormBuilder,
     private service: TaskService,
     private _coreService: CoreService,
     private _dialogRef: MatDialogRef<AddEditComponent>,
+<<<<<<< HEAD
     @Inject(MAT_DIALOG_DATA) public data: any  
+=======
+    @Inject(MAT_DIALOG_DATA) public data: any
+>>>>>>> 80dcd86 (Code Formatted)
 
-  ){
+  ) {
     this.taskForm = this._fb.group({
-      firstName:['', Validators.required],
-      lastName:['', Validators.required],
-      email:['', [Validators.required, Validators.email]],
-      dob:['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      dob: ['', Validators.required],
     })
   }
   ngOnInit(): void {
     this.taskForm.patchValue(this.data);
   }
 
-  FormDetailsSubmit()
-  {
-    if(this.taskForm.valid)
-    {
+  FormDetailsSubmit() {
+    if (this.taskForm.valid) {
 
-      if(this.data)
-      {
+      if (this.data) {
 
         this.service.editTask(this.data.id, this.taskForm.value).subscribe({
-          next: (data:any)=>
-          {
+          next: (data: any) => {
             this._coreService.openSnackBar('Task updated!');
+<<<<<<< HEAD
             this._dialogRef.close(true); 
+=======
+            this._dialogRef.close(true); // send refresh signal to parent.
+>>>>>>> 80dcd86 (Code Formatted)
           }
         })
 
       }
 
-      else
-      {
-    this.service.addTask(this.taskForm.value).subscribe({
-      next: (data:any)=>
-      {
-        this._coreService.openSnackBar("Task Added Successfully!");
-        this._dialogRef.close();
-        console.log(data);
-      },
-      error: (err:any)=>
-      {
-        console.log(err);   
-      } 
-    })
+      else {
+        this.service.addTask(this.taskForm.value).subscribe({
+          next: (data: any) => {
+            this._coreService.openSnackBar("Task Added Successfully!");
+            this._dialogRef.close();
+            console.log(data);
+          },
+          error: (err: any) => {
+            console.log(err);
+          }
+        })
       }
-     }
+    }
   }
 
 }

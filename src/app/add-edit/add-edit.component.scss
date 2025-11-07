@@ -1,22 +1,19 @@
-.row
-{
+.row {
     display: flex;
     gap: 10px;
 
-    mat-form-field
-    {
+    mat-form-field {
         width: 100%;
-       
+
     }
 
 }
 
-.action
-{
+.action {
 
     padding: 0 24px 9px;
 
-    button{
-        flex:1;
+    button {
+        flex: 1;
     }
 }
